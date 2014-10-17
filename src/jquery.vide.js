@@ -327,19 +327,21 @@
             return;
         }
 
-        if( typeof width !== 'undefined' )
+        if (typeof width !== "undefined") {
             this.forcedWidth = width;
+        }
 
-        if( typeof height !== 'undefined' )
+        if (typeof height !== "undefined") {
             this.forcedHeight = height;
+        }
 
         // get native video size
         var videoHeight = this.video[0].videoHeight,
             videoWidth = this.video[0].videoWidth;
 
         // get wrapper size
-        var wrapperHeight = typeof this.forcedHeight === 'undefined' || this.forcedHeight === false ? this.wrapper.height() : this.forcedHeight,
-            wrapperWidth = typeof this.forcedWidth === 'undefined' || this.forcedWidth === false ? this.wrapper.width() : this.forcedWidth;
+        var wrapperHeight = typeof this.forcedHeight === "undefined" || this.forcedHeight === false ? this.wrapper.height() : this.forcedHeight,
+            wrapperWidth = typeof this.forcedWidth === "undefined" || this.forcedWidth === false ? this.wrapper.width() : this.forcedWidth;
 
         if (wrapperWidth / videoWidth > wrapperHeight / videoHeight) {
             this.video.css({

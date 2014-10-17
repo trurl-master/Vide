@@ -300,6 +300,9 @@
                 "transform": "translate(-" + position.x + ", -" + position.y + ")"
             });
 
+            this.forcedWidth = this.settings.forcedWidth;
+            this.forcedHeight = this.settings.forcedHeight;
+
             // resize video, when it's loaded
             this.video.bind("loadedmetadata." + pluginName, function () {
                 that.video.css("visibility", "visible");
@@ -327,9 +330,17 @@
      * Resize video background
      * @public
      */
-    Vide.prototype.resize = function () {
+    Vide.prototype.resize = function (width, height) {
         if (!this.video) {
             return;
+        }
+
+        if (typeof width !== "undefined") {
+            this.forcedWidth = width;
+        }
+
+        if (typeof height !== "undefined") {
+            this.forcedHeight = height;
         }
 
         // get native video size
@@ -337,8 +348,8 @@
             videoWidth = this.video[0].videoWidth;
 
         // get wrapper size
-        var wrapperHeight = this.wrapper.height(),
-            wrapperWidth = this.wrapper.width();
+        var wrapperHeight = typeof this.forcedHeight === "undefined" || this.forcedHeight === false ? this.wrapper.height() : this.forcedHeight,
+            wrapperWidth = typeof this.forcedWidth === "undefined" || this.forcedWidth === false ? this.wrapper.width() : this.forcedWidth;
 
         if (wrapperWidth / videoWidth > wrapperHeight / videoHeight) {
             this.video.css({
